@@ -7,4 +7,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { score: 0 });
 });
 
+
+
 module.exports = router;
