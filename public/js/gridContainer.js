@@ -1,5 +1,5 @@
 //基本的にGridの中身を色々やりとりするクラス
-var GridContainer = function(){
+var gridContainer = function(){
 	//点数を保存する
 	this.score = 0;
 	//マトリクスの大きさを定義する
@@ -10,12 +10,12 @@ var GridContainer = function(){
 };
 
 //sizeのセット関数
-GridContainer.prototype.setSize = function (matrixSize){
+gridContainer.prototype.setSize = function (matrixSize){
 	this.size = matrixSize;
 }
 
 //初期化するメソッド
-GridContainer.prototype.initiate = function(matrixSize){
+gridContainer.prototype.initiate = function(matrixSize){
 	//スコアの初期化
 	this.score=0;
 	
@@ -43,7 +43,7 @@ GridContainer.prototype.initiate = function(matrixSize){
 }
 
 //Grid自体を描画するメソッド
-GridContainer.prototype.draw = function(){
+gridContainer.prototype.draw = function(){
 	//grid-containerを取得する
 	gridContainerHTML=document.querySelector('.grid-container');
 	
@@ -79,7 +79,7 @@ GridContainer.prototype.draw = function(){
 }
 
 //Gridの一番小さい値を2倍にする
-GridContainer.prototype.multiplySmallest=function(){
+gridContainer.prototype.multiplySmallest=function(){
 	//もっとも小さい値を格納する変数
 	var smallest= Infinity;
 	//一番小さい値を検索する
@@ -101,7 +101,7 @@ GridContainer.prototype.multiplySmallest=function(){
 }
 
 //Gridの中身を反映するメソッド
-GridContainer.prototype.update = function(){
+gridContainer.prototype.update = function(){
 	//gridの中身を反映する
 	var gridRow = document.querySelectorAll('.grid-row');
 	for(var i=0; i<this.size; i++){
@@ -132,7 +132,7 @@ GridContainer.prototype.update = function(){
 
 //Gridの中身を動かすメソッド
 //引数directionの中身 0:Up 1:Right 2:Down 3:Left
-GridContainer.prototype.move = function(direction){
+gridContainer.prototype.move = function(direction){
 	//上方向に移動させる
 	if(direction==0){
 		//まず0がある場合はその方向に移動させる
@@ -298,4 +298,5 @@ GridContainer.prototype.move = function(direction){
 	}
 }
 
-
+//エクスポートする
+module.exports=gridContainer;
