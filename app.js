@@ -23,7 +23,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 //20180604　子プロセスとしてgirdCalcuratorを起動する
-var child = child_process.fork('./public/js/gridCalcurator.js');
+//var child = child_process.fork('./public/js/gridCalcurator.js');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

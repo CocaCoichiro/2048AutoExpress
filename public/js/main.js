@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded",function(){
 	function drawGrid(){
 		timer=window.requestAnimationFrame(drawGrid);
+		
 	}
 	drawGrid();
 });

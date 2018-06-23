@@ -11,35 +11,13 @@
     <div class="heading">
       <h1 class="title">2048</h1>
       <div class="scores-container">
-        <div class="score-container"><%= score %></div>
+        <div class="score-container"><%= grid.score %></div>
       </div>
     </div>
-
     <div class="above-game">
       <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
     </div>
     <div class="above-game">   
-    <p class="game-intro">Number of Rows
-    <select id='numberOfRow'>
-    <option value = "4" selected> 4 </option>
-    <% for(var i=5; i<101; i++){ %>
-    
-    <option value = '<%= i %> '> <%= i %> </option>
-    
-    <% } %>
-    </select>
-    </p>
-    	<a class="restart-button">New Game</a>
-    </div>
-    <div class="above-game">
-    	<a class="auto-button">Auto Solve</a>
-    </div>
-    	<div class="above-game">
-    <a class="stop-button">Stop Auto</a> 
-    </div>
-    	<div class="above-game">
-    <a class="multiply-button">Multiply</a> 
-    </div>
     <div class="game-container">
       <div class="game-message">
         <p></p>
