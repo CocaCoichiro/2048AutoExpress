@@ -11,7 +11,7 @@
     <div class="heading">
       <h1 class="title">2048</h1>
       <div class="scores-container">
-        <div class="score-container"><%= grid.score %></div>
+        <div class="score-container"></div>
       </div>
     </div>
     <div class="above-game">
@@ -31,6 +31,11 @@
       <div class="tile-container"></div>
     </div>
   </div>
-   <script src="js/main.js"></script>
 </body>
+
+
+<script type="text/javascript">
+  var grid = <%- JSON.stringify(grid) %>;
+</script>
+<script src="js/main.js"></script>
 </html>

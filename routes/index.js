@@ -26,7 +26,7 @@ if(cluster.isMaster){
 		var grid = new gridContainer();
 		//マス目ファイルから現在の値を取得して返す
 		if(fs.existsSync(GRID_PATH)){
-			gridTemp=require(GRID_PATH);
+			var gridTemp = JSON.parse(fs.readFileSync(GRID_PATH,'utf8'));
 			grid.score = gridTemp.score;
 			grid.size = gridTemp.size;
 			grid.matrix = gridTemp.matrix;
@@ -45,7 +45,7 @@ if(cluster.isMaster){
 	while(1){
 		//gridの情報を取得する
 		if(fs.existsSync(GRID_PATH)){
-			gridTemp=require(GRID_PATH);
+			var gridTemp = JSON.parse(fs.readFileSync(GRID_PATH,'utf8'));
 			grid.score = gridTemp.score;
 			grid.size = gridTemp.size;
 			grid.matrix = gridTemp.matrix;
@@ -60,8 +60,6 @@ if(cluster.isMaster){
 		
 		//gridの情報を書き込む
 		jsonfile.writeFileSync(GRID_PATH,grid);
-
-		console.log(grid);
 	}
 }
 

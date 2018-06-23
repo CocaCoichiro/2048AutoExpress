@@ -42,41 +42,6 @@ gridContainer.prototype.initiate = function(matrixSize){
 	this.matrix[x][y]=2;
 }
 
-//Grid自体を描画するメソッド
-gridContainer.prototype.draw = function(){
-	//grid-containerを取得する
-	gridContainerHTML=document.querySelector('.grid-container');
-	
-	//grid-containerの中身を削除する
-	while( gridContainerHTML.firstChild ){
-		gridContainerHTML.removeChild( gridContainerHTML.firstChild );
-		}
-	
-	//grid-rowとgrid-cellを記述する
-	for(var i=0; i<this.size; i++){
-		//gridrowのHTML要素を作る
-		var gridrowHTML = document.createElement('div');
-		gridrowHTML.className="grid-row";
-		
-		for(var k=0; k<this.size; k++){
-			//gridcellのHTML要素を作る
-			var gridcellHTML = document.createElement('div');
-			gridcellHTML.className="grid-cell";
-			//gridrowに追加する
-			gridrowHTML.appendChild(gridcellHTML);
-		}
-		
-		//gridContainerに追加する
-		gridContainerHTML.appendChild(gridrowHTML);
-	}
-	//grid-cellのwidthとheightを取得する
-	var width = window.getComputedStyle( document.getElementsByClassName('grid-cell').item(0)).width.split("px")[0];
-	var height = window.getComputedStyle( document.getElementsByClassName('grid-cell').item(0)).height.split("px")[0];
-	var margin = window.getComputedStyle( document.getElementsByClassName('grid-cell').item(0)).marginRight.split("px")[0];
-	//game-containerの縦幅と横幅を変更する
-	var gameContainer=document.getElementsByClassName("game-container");
-	gameContainer.item(0).setAttribute("style","width:"+(width*this.size+margin*this.size +15)+"px"+";height:"+(height*this.size+margin*this.size +15)+"px");
-}
 
 //Gridの一番小さい値を2倍にする
 gridContainer.prototype.multiplySmallest=function(){
@@ -98,36 +63,6 @@ gridContainer.prototype.multiplySmallest=function(){
 			}
 		}	
 	}
-}
-
-//Gridの中身を反映するメソッド
-gridContainer.prototype.update = function(){
-	//gridの中身を反映する
-	var gridRow = document.querySelectorAll('.grid-row');
-	for(var i=0; i<this.size; i++){
-		var gridCell = gridRow.item(i).querySelectorAll('.grid-cell');
-		for(var j=0; j<this.size; j++){
-			//0の場合は空白文字を入力する
-			if(this.matrix[i][j]){
-				gridCell.item(j).innerHTML = this.matrix[i][j];
-				
-				//桁数に応じて表示する文字の大きさを変更する
-				digit = this.matrix[i][j].toString(10).length;
-				if(digit > 3){
-					gridCell.item(j).style.fontSize = (180/digit) + 'px';
-				}else{
-					gridCell.item(j).style.fontSize = '60px';
-				}
-				
-				
-			}else{
-				gridCell.item(j).innerHTML = "";
-			}
-		}
-	}
-	//スコアの中身を反映する
-	var scoreContainer=document.querySelector('.score-container');
-	scoreContainer.innerHTML = this.score;
 }
 
 //Gridの中身を動かすメソッド
