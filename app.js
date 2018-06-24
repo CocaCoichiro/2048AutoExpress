@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var child_process = require('child_process');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var jsonGridRouter = require('./routes/jsonGrid');
+
 
 var app = express();
 
@@ -20,10 +21,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-//20180604　子プロセスとしてgirdCalcuratorを起動する
-//var child = child_process.fork('./public/js/gridCalcurator.js');
+app.use('/jsonGrid', jsonGridRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

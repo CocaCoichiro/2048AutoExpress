@@ -1,8 +1,24 @@
 //最初に画面が表示されてからアニメーションが描画されるごとにサーバーから盤面の情報を取得する
-setInterval
 document.addEventListener("DOMContentLoaded",function(){
+	//まずロードされたタイミングでgridを描画する
 	draw(grid);
 	update(grid);
+
+	//次から0.1秒ごとにgridをajaxで取得してgridの情報を更新する
+	setInterval(function(){
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			if(this.readyState==4 && this.status==200){
+				draw(this.response);
+				update(this.response);
+				console.log(this.response);
+			}
+		};
+		xhr.responseType='json';
+		xhr.open('GET','/jsonGrid',true);
+		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		xhr.send();
+	},100);
 });
 
 

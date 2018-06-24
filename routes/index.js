@@ -20,7 +20,8 @@ if(cluster.isMaster){
 	cluster.on('exit',function(worker,code,signal){
 		console.log('gridCalcurationWorker' + worker.process.pid + 'died');
 	});
-	//getリクエストに対する返答を記述する
+
+	//getリクエストに対する返答を記述する(httpを返す)
 	router.get('/', function(req, res, next) {
 		//grid関数を定義する
 		var grid = new gridContainer();
@@ -45,11 +46,11 @@ if(cluster.isMaster){
 	while(1){
 		//gridの情報を取得する
 		if(fs.existsSync(GRID_PATH)){
-			var gridTemp = JSON.parse(fs.readFileSync(GRID_PATH,'utf8'));
-			grid.score = gridTemp.score;
-			grid.size = gridTemp.size;
-			grid.matrix = gridTemp.matrix;
-		}else{
+				var gridTemp = JSON.parse(fs.readFileSync(GRID_PATH,'utf8'));
+				grid.score = gridTemp.score;
+				grid.size = gridTemp.size;
+				grid.matrix = gridTemp.matrix;		
+			}else{
 			grid.initiate(GRID_LENGTH);
 			jsonfile.writeFileSync(GRID_PATH,grid);
 		}
