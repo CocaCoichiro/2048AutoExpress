@@ -9,8 +9,10 @@ var jsonfile=require('jsonfile');
 var gridContainer=require(__dirname+'/../public/js/gridContainer.js');
 
 //各種静的設定値の設定
-const GRID_LENGTH=20;
+const GRID_LENGTH=8;
 const GRID_PATH=__dirname+'/../public/json/grid.json';
+
+
 
 //マスタープロセスの場合は子プロセスをforkする
 if(cluster.isMaster){
@@ -25,12 +27,20 @@ if(cluster.isMaster){
 	router.get('/', function(req, res, next) {
 		//grid関数を定義する
 		var grid = new gridContainer();
+
 		//マス目ファイルから現在の値を取得して返す
 		if(fs.existsSync(GRID_PATH)){
-			var gridTemp = JSON.parse(fs.readFileSync(GRID_PATH,'utf8'));
-			grid.score = gridTemp.score;
-			grid.size = gridTemp.size;
-			grid.matrix = gridTemp.matrix;
+			//もし読み込んだファイルがJSONのフォーマットだったら
+			if(fs.readFileSync(GRID_PATH,'utf8').toString()){
+				var gridTemp = JSON.parse(fs.readFileSync(GRID_PATH,'utf8'));
+				grid.bestscore = gridTemp.bestscore;
+				grid.score = gridTemp.score;
+				grid.size = gridTemp.size;
+				grid.matrix = gridTemp.matrix;
+			}else{//もしファイルの形式がおかしかった場合
+				grid.initiate(GRID_LENGTH);
+				jsonfile.writeFileSync(GRID_PATH,grid);
+			}
 		}else{
 			grid.initiate(GRID_LENGTH);
 			jsonfile.writeFileSync(GRID_PATH,grid);
@@ -44,17 +54,25 @@ if(cluster.isMaster){
 
 	//gridの情報を取得して書き込む無限ループ
 	while(1){
+
 		//gridの情報を取得する
 		if(fs.existsSync(GRID_PATH)){
+			if(fs.readFileSync(GRID_PATH,'utf8').toString()){
 				var gridTemp = JSON.parse(fs.readFileSync(GRID_PATH,'utf8'));
+				grid.bestscore = gridTemp.bestscore;
 				grid.score = gridTemp.score;
 				grid.size = gridTemp.size;
-				grid.matrix = gridTemp.matrix;		
+				grid.matrix = gridTemp.matrix;	
+			}
 			}else{
 			grid.initiate(GRID_LENGTH);
 			jsonfile.writeFileSync(GRID_PATH,grid);
 		}
 		//実際に動かす戦略
+		//死んだ場合に最初からやり直す
+		if(grid.checkDeath()){
+			grid.initiate(GRID_LENGTH);
+		}
 		//引数directionの中身 0:Up 1:Right 2:Down 3:Left
 		grid.move(3);
 		grid.move(0);

@@ -1,5 +1,7 @@
 //基本的にGridの中身を色々やりとりするクラス
 var gridContainer = function(){
+	//最高点を保持する
+	this.bestscore = 0;
 	//点数を保存する
 	this.score = 0;
 	//マトリクスの大きさを定義する
@@ -40,30 +42,13 @@ gridContainer.prototype.initiate = function(matrixSize){
 	var x= Math.floor(Math.random()*this.size);
 	var y= Math.floor(Math.random()*this.size);
 	this.matrix[x][y]=2;
-}
 
-
-//Gridの一番小さい値を2倍にする
-gridContainer.prototype.multiplySmallest=function(){
-	//もっとも小さい値を格納する変数
-	var smallest= Infinity;
-	//一番小さい値を検索する
-	for (var i=0; i<this.size; i++){
-		for(var j=0; j<this.size; j++){
-			if(this.matrix[i][j] < smallest && this.matrix[i][j] != 0){
-				smallest = this.matrix[i][j];
-			}
-		}	
-	}
-	//一番小さい値を2倍する
-	for (var i=0; i<this.size; i++){
-		for(var j=0; j<this.size; j++){
-			if(this.matrix[i][j] === smallest){
-				this.matrix[i][j] = this.matrix[i][j]*2;
-			}
-		}	
+	//今の点数と比較し，最高点を更新していた場合は最高点を更新する
+	if(this.score > this.bestscore){
+		this.bestscore = this.score;
 	}
 }
+
 
 //Gridの中身を動かすメソッド
 //引数directionの中身 0:Up 1:Right 2:Down 3:Left
@@ -231,7 +216,26 @@ gridContainer.prototype.move = function(direction){
 			}
 		}
 	}
+	
+	//最高点を更新している場合は最高点を更新する
+	if(this.score>this.bestscore){
+		this.bestscore=this.score;
+	}
 }
+
+//gridの中身が死んでいるかどうかを確認する関数
+gridContainer.prototype.checkDeath = function(){
+	for(var i=0; i<this.size; i++){
+		for(var j=0; j<this.size;j++){
+			if(this.matrix[i][j]==0){
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+
 
 //エクスポートする
 module.exports=gridContainer;

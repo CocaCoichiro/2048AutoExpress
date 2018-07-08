@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded",function(){
 		xhr.open('GET','/jsonGrid',true);
 		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 		xhr.send();
-	},100);
+	},10);
 });
 
 
@@ -86,4 +86,7 @@ function update(grid){
 	//スコアの中身を反映する
 	var scoreContainer=document.querySelector('.score-container');
 	scoreContainer.innerHTML = grid.score;
+	//最高点の中身を反映する
+	var bestContainer=document.querySelector('.best-container');
+	bestContainer.innerHTML=grid.bestscore;
 }

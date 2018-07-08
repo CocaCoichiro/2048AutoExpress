@@ -16,6 +16,7 @@ router.get('/', function(req, res, next) {
   var grid = new gridContainer();
   if(fs.existsSync(GRID_PATH)){
     var gridTemp = JSON.parse(fs.readFileSync(GRID_PATH,'utf8'));
+    grid.bestscore=gridTemp.bestscore;
     grid.score = gridTemp.score;
     grid.size = gridTemp.size;
     grid.matrix = gridTemp.matrix;
