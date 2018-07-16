@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded",function(){
 		xhr.open('GET','/jsonGrid',true);
 		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 		xhr.send();
-	},10);
+	},20);
 });
 
 

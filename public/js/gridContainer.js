@@ -29,7 +29,7 @@ gridContainer.prototype.initiate = function(matrixSize){
 	
 	//数字を格納するmatrix配列を定義する
 	this.matrix.length=this.size;
-	this.matrix.fill(0)
+	this.matrix.fill(0);
 	
 	//matrixの数字を全て0に初期化する
 	for(var i=0; i<this.size; i++){
