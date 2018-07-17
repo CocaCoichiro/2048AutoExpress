@@ -9,7 +9,7 @@ var jsonfile=require('jsonfile');
 var gridContainer=require(__dirname+'/../public/js/gridContainer.js');
 
 //各種静的設定値の設定
-const GRID_LENGTH=8;
+const GRID_LENGTH=15;
 const GRID_PATH=__dirname+'/../public/json/grid.json';
 
 
